@@ -14,15 +14,33 @@ public class Arbre {
     private int valeur, n, m;
     private Arbre gauche, droit;
 
-    // CONSTRUCTEURS
-    public Arbre(int x) {
-        valeur = x;
+    public int getN() {
+        return n;
     }
 
-    public Arbre(int x, Arbre g, Arbre d) {
-        valeur = x;
-        gauche = g;
-        droit = d;
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public int getM() {
+        return m;
+    }
+
+    public void setM(int m) {
+        this.m = m;
+    }
+
+    // CONSTRUCTEURS
+    public Arbre(int x) {
+        this.valeur = x;
+    }
+
+    public Arbre(int n, int m, int x, Arbre g, Arbre d) {
+        this.n = n;
+        this.m = m;
+        this.valeur = x;
+        this.gauche = g;
+        this.droit = d;
     }
 
     public Arbre (String filepath){
@@ -31,7 +49,11 @@ public class Arbre {
             FileReader fr = new FileReader(filepath);
             BufferedReader br = new BufferedReader(fr);
             while ((line = br.readLine()) != null){
-                    System.out.println(line);
+                    String[] arbre_from_string = line.split(";");
+                    for (int i = 0; i<arbre_from_string.length; i++){
+
+                        System.out.println(arbre_from_string[i]);
+                    }
             }
         }
         catch(IOException e) {
