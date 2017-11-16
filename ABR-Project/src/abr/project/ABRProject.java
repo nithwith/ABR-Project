@@ -5,9 +5,9 @@
  */
 package abr.project;
 
-import static abr.project.Arbre.arbresEgaux;
-import static abr.project.Arbre.estABR;
-import static abr.project.Arbre.hauteur;
+import static abr.project.Noeud.arbresEgaux;
+import static abr.project.Noeud.estABR;
+import static abr.project.Noeud.hauteur;
 import java.io.File;
 
 /**
@@ -20,10 +20,7 @@ public class ABRProject {
      */
     public static void main(String[] args) {
         
-        
-        Arbre b = new Arbre(2,new Arbre(1),new Arbre(4,new Arbre(3),new Arbre(5)));
-        Arbre c = new Arbre(10,new Arbre(8),new Arbre(12));       
-        Arbre a = new Arbre(6,b,c);
+        Noeud b = new Noeud(2,new Noeud(1),new Noeud(4,new Noeud(3),new Noeud(5)));
 
         /**Arbre b = new Arbre(2,new Arbre(1),new Arbre(4,new Arbre(3),new Arbre(5)));
          Arbre c = new Arbre(10,new Arbre(8),new Arbre(12));
