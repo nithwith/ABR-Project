@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * @author theo
@@ -21,8 +22,9 @@ public class ABRProject {
      */
     public static void main(String[] args) {
         
-        System.out.println("hello");
-
+        while(true) {
+            display();
+        }
 
     }
     
@@ -61,6 +63,47 @@ public class ABRProject {
             System.err.println(e);
         }
         
+    }
+
+    public static void  display(){
+        Scanner input = new Scanner(System.in);
+        System.out.println("-- Actions --");
+        System.out.println(
+                "Sélectionner une option: \n" +
+                        "  1) Ficher vers AABRR\n" +
+                        "  2) AABRR vers fichier\n" +
+                        "  3) Affichage à l'écran\n" +
+                        "  4) AABRR aléatoire\n " +
+                        "  5) Vérification\n " +
+                        "  6) Quitter\n "
+        );
+        System.out.print("Rentrez votre choix: ");
+        int selection = input.nextInt();
+        input.nextLine();
+        switch (selection) {
+            case 1:
+                System.out.println("Fichier vers AABRR");
+                break;
+            case 2:
+                System.out.println("AABRR vers fichier");
+                break;
+            case 3:
+                System.out.println("Affichage à l'écran");
+                break;
+            case 4:
+                System.out.println("AABRR aléatoire");
+                break;
+            case 5:
+                System.out.println("Vérification");
+                break;
+            case 6:
+                System.out.println("Exiting...");
+                System.exit(1);
+                break;
+            default:
+                System.out.println("Aucune correspondance.");
+                break;
+        }
     }
 
 }
