@@ -19,7 +19,6 @@ public class ABRProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello");
         
         Arbre b = new Arbre(2,new Arbre(1),new Arbre(4,new Arbre(3),new Arbre(5)));
         Arbre c = new Arbre(10,new Arbre(8),new Arbre(12));       
