@@ -5,6 +5,8 @@
  */
 package abr.project;
 
+import java.io.File;
+
 /**
  *
  * @author theo
@@ -189,4 +191,20 @@ public class Arbre {
 		droit = new Arbre(value);
 	}
     }
+    
+    public void saveAABRR(String url, Arbre a){
+        File fichier = null;
+        try {
+            fichier = new File(url);
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        //fichier.write ("Mon premier fichier, priere de m'aider!");
+        //fichier.close()
+        
+    }
+
+
+
+
 }

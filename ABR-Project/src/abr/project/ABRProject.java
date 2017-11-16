@@ -8,6 +8,7 @@ package abr.project;
 import static abr.project.Arbre.arbresEgaux;
 import static abr.project.Arbre.estABR;
 import static abr.project.Arbre.hauteur;
+import java.io.File;
 
 /**
  *
@@ -19,6 +20,7 @@ public class ABRProject {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
         
         Arbre b = new Arbre(2,new Arbre(1),new Arbre(4,new Arbre(3),new Arbre(5)));
         Arbre c = new Arbre(10,new Arbre(8),new Arbre(12));       
