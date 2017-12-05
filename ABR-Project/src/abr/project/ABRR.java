@@ -5,6 +5,8 @@
  */
 package abr.project;
 
+import java.util.Arrays;
+
 /**
  *
  * @author theo
@@ -21,6 +23,32 @@ public class ABRR {
 
     public ABRR(int valeur) {
         this.valeur = valeur;
+    }
+
+    ABRR() {
+    }
+    
+    public ABRR (String[] petit_arbre_tab) {
+        ABRR arbre = new ABRR(Integer.parseInt(petit_arbre_tab[0]));
+        
+        int val = Integer.parseInt(petit_arbre_tab[0]);
+        int next_val = Integer.parseInt(petit_arbre_tab[1]);
+        
+        if( val > next_val ){
+            String sous_arbre_tab[] = null;
+            System.arraycopy(petit_arbre_tab,1,sous_arbre_tab,0,petit_arbre_tab.length);
+            System.out.println(sous_arbre_tab);
+            ABRR sous_arbre = new ABRR(sous_arbre_tab);
+            arbre.setGauche(sous_arbre);
+        }
+        
+        else if(val < next_val){
+            String sous_arbre_tab[] = null;
+            System.arraycopy(petit_arbre_tab,1,sous_arbre_tab,0,petit_arbre_tab.length);
+            System.out.println(sous_arbre_tab);
+            ABRR sous_arbre = new ABRR(sous_arbre_tab);
+            arbre.setDroit(sous_arbre);
+        }
     }
 
     public int getValeur() {
