@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,14 +51,22 @@ public class ABRProject {
             System.err.println("Fichier non trouvé : " + e);
         }
         
-        while ((line = br.readLine()) != null){
-            String[] grand_arbre_tab = line.split("\n");
-            //System.out.println(grand_arbre_tab);
-            AABRR grand_arbre = new AABRR(grand_arbre_tab);
-            return grand_arbre;
-            
-        }
-        return null;
+        Vector<String> grand_arbre_tab = new Vector<String>();;
+        int i=0;
+        String chaine = null;
+        
+        String ligne;
+	while ((ligne=br.readLine())!=null){
+            grand_arbre_tab.add(i,ligne);
+            i++;
+	}
+	br.close(); 
+        
+       
+        
+        AABRR grand_arbre = new AABRR(grand_arbre_tab);
+        return grand_arbre;
+        
     }
 
     

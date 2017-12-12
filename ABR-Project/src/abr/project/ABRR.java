@@ -5,7 +5,9 @@
  */
 package abr.project;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.Vector;
 
 /**
  *
@@ -28,27 +30,29 @@ public class ABRR {
     ABRR() {
     }
     
-    public ABRR (String[] petit_arbre_tab) {
-        ABRR arbre = new ABRR(Integer.parseInt(petit_arbre_tab[0]));
+    public ABRR (Vector<String> petit_arbre_tab) {
+        //System.out.println("petit arbre");
         
-        int val = Integer.parseInt(petit_arbre_tab[0]);
-        int next_val = Integer.parseInt(petit_arbre_tab[1]);
+        int val = Integer.parseInt(petit_arbre_tab.elementAt(0));
+        ABRR arbre = new ABRR(val);
         
-        if( val > next_val ){
-            String sous_arbre_tab[] = null;
-            System.arraycopy(petit_arbre_tab,1,sous_arbre_tab,0,petit_arbre_tab.length);
-            System.out.println(sous_arbre_tab);
-            ABRR sous_arbre = new ABRR(sous_arbre_tab);
-            arbre.setGauche(sous_arbre);
+        
+        if(petit_arbre_tab.size()>1){
+            int next_val = Integer.parseInt(petit_arbre_tab.elementAt(1));
+            System.out.println(petit_arbre_tab.remove(0));
+
+            if( val > next_val ){
+                ABRR sous_arbre = new ABRR(petit_arbre_tab);
+                arbre.setGauche(sous_arbre);
+            }
+
+            else if( val < next_val ){
+                ABRR sous_arbre = new ABRR(petit_arbre_tab);
+                arbre.setDroit(sous_arbre);
+            }
         }
+        //System.out.println("fini");
         
-        else if(val < next_val){
-            String sous_arbre_tab[] = null;
-            System.arraycopy(petit_arbre_tab,1,sous_arbre_tab,0,petit_arbre_tab.length);
-            System.out.println(sous_arbre_tab);
-            ABRR sous_arbre = new ABRR(sous_arbre_tab);
-            arbre.setDroit(sous_arbre);
-        }
     }
 
     public int getValeur() {

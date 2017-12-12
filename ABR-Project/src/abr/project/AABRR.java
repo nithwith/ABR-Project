@@ -7,6 +7,9 @@ package abr.project;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Vector;
 
 /**
  * @author theo
@@ -34,50 +37,45 @@ public class AABRR {
         this.arbreBinaire = arbreBinaire;
     }
     
-    public AABRR (String[] grand_arbre_tab){
-        System.out.println("construct_grand_arbre");
-        for (int i = 0; i < grand_arbre_tab.length; i++) {
-            System.out.println(grand_arbre_tab[i]);
-        }
+    public Vector<String> convertStringToVectorSplit(String tab_string ,String charactereSplit){
+        String[] tab = tab_string.split(charactereSplit);
+        Vector<String> vector = new Vector<>();
+        vector.addAll(Arrays.asList(tab));
         
+        return vector;
+    }
+    
+    public AABRR (Vector<String> grand_arbre_tab){
+                
         //Construction Noeud
-        
-        String[] AABRR_tab = grand_arbre_tab[0].split(";");
-        String[] mM_tab = grand_arbre_tab[0].split(":");
-        String[] petit_arbre_tab = AABRR_tab[1].split(":");
-        
-        for (int i = 0; i < petit_arbre_tab.length; i++) {
-            System.out.println(petit_arbre_tab[i]);
-        }
+
+        Vector<String>AABRR_vector = convertStringToVectorSplit(grand_arbre_tab.get(0),";");
+        Vector<String>mM_vector = convertStringToVectorSplit(AABRR_vector.get(0),":");
+        Vector<String>petit_arbre_vector = convertStringToVectorSplit(AABRR_vector.get(1),":");
+        System.out.println();
+
         
                 
-        int m = Integer.parseInt(mM_tab[0]);
-        int M = Integer.parseInt(mM_tab[0]);
+        int m = Integer.parseInt(mM_vector.get(0));
+        int M = Integer.parseInt(mM_vector.get(1));
+        ABRR petit_arbre = new ABRR(petit_arbre_vector);
         
-        ABRR petit_arbre = new ABRR(petit_arbre_tab);
         AABRR arbre = new AABRR(m,M,petit_arbre);
         
         //Construction sous arbres
         
-        int self_m = (int)grand_arbre_tab[0].charAt(0);
-        int next_M = (int)grand_arbre_tab[0].charAt(2);
+        int self_m = (int)grand_arbre_tab.elementAt(0).charAt(0);
+        int next_M = (int)grand_arbre_tab.elementAt(0).charAt(2);
+        
+        grand_arbre_tab.remove(0);
         
         if( self_m > next_M ){
-            String sous_arbre_tab[] = null;
-            sous_arbre_tab = 
-                    
-            //Problème Copy TAB
-            //System.arraycopy(grand_arbre_tab,1,sous_arbre_tab,0,grand_arbre_tab.length);
-            //System.out.println(sous_arbre_tab);
-            AABRR sous_arbre = new AABRR(sous_arbre_tab);
+            AABRR sous_arbre = new AABRR(grand_arbre_tab);
             arbre.setGauche(sous_arbre);
         }
         
         else if( self_m < next_M ){
-            String sous_arbre_tab[] = null;
-            System.arraycopy(grand_arbre_tab,1,sous_arbre_tab,0,grand_arbre_tab.length);
-            //System.out.println(sous_arbre_tab);
-            AABRR sous_arbre = new AABRR(sous_arbre_tab);
+            AABRR sous_arbre = new AABRR(grand_arbre_tab);
             arbre.setDroit(sous_arbre);
         }        
         
