@@ -15,6 +15,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -39,8 +42,10 @@ public class ABRProject {
     }
     
     
-    public AABRR fileToArbre (String filepath) throws IOException{
-        String line;
+    
+    
+    public void fileToArbre (String filepath) throws IOException{
+        String line = null;
         BufferedReader br = null;
         
         try {
@@ -51,23 +56,88 @@ public class ABRProject {
             System.err.println("Fichier non trouvé : " + e);
         }
         
-        Vector<String> grand_arbre_tab = new Vector<String>();;
-        int i=0;
-        String chaine = null;
         
-        String ligne;
+        Vector<Vector<Integer>> prefixe_tab = new Vector<>();
+        
+        Vector<String> fichier_string = new Vector<>();
+        
+        String ligne = null;
 	while ((ligne=br.readLine())!=null){
-            grand_arbre_tab.add(i,ligne);
-            i++;
-	}
-	br.close(); 
+            fichier_string.add(ligne);
+        }
+        br.close(); 
+        
+        
+        //Construction tab int brut
+        String[] tab=null;
+        int numNoeud=0;
+        
+        for (String string : fichier_string) {
+            prefixe_tab.add(new Vector<>());
+            tab = string.split(";");
+            for (String string1 : tab) {
+                String[] tab2 = string1.split(":");
+                
+                
+                for (String string2 : tab2) {
+                    prefixe_tab.get(numNoeud).add(Integer.parseInt(string2));
+                }
+            }
+            numNoeud++;
+        }
+        
+            
+
+      
+        
+        //Tri tab prefixe pour obtenir tab infixe
+        
+        Vector<Vector<Integer>> infixe_tab = prefixe_tab;
+        
+        
+        //Tri des noeuds des petits arbres
+        int rang=0;
+        for (Vector<Integer> vector : infixe_tab) {
+            Vector<Integer>petit_arbre_trie=new Vector<>();
+            
+            for (int k = 2; k < vector.size(); k++) {
+                petit_arbre_trie.add(vector.get(k));
+            }
+            
+            Collections.sort(petit_arbre_trie);
+            
+            for (int k = 2; k < vector.size(); k++) {
+                vector.remove(k);
+                vector.add(k, petit_arbre_trie.get(k-2));
+            }             
+        }
+        
+        //Tri des noeuds des grand arbres
+        boolean permut;
+ 
+        do {
+                permut = false;
+                for (int i = 0; i < infixe_tab.size() - 1; i++) {
+                        Vector<Integer> vector = infixe_tab.elementAt(i);
+                        Vector<Integer> next_vector = infixe_tab.elementAt(i+1);
+                        
+                        if (vector.elementAt(0) > next_vector.elementAt(0)) {
+                            infixe_tab.remove(vector);
+                            infixe_tab.remove(next_vector);
+                            infixe_tab.add(i,next_vector);
+                            infixe_tab.add(i+1,vector);
+                            permut = true;
+                        }
+                }
+        } while (permut);
+        
+       AABRR grandAbre = new AABRR(prefixe_tab,infixe_tab, 0,0,prefixe_tab.size(),infixe_tab.size());
         
        
         
-        AABRR grand_arbre = new AABRR(grand_arbre_tab);
-        return grand_arbre;
         
     }
+    
 
     
     

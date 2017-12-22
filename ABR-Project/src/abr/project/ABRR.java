@@ -33,13 +33,13 @@ public class ABRR {
     public ABRR (Vector<String> petit_arbre_tab) {
         //System.out.println("petit arbre");
         
-        int val = Integer.parseInt(petit_arbre_tab.elementAt(0));
+        int val = Integer.parseInt(petit_arbre_tab.get(0));
+        System.out.print(val+":");
         ABRR arbre = new ABRR(val);
         
-        
         if(petit_arbre_tab.size()>1){
-            int next_val = Integer.parseInt(petit_arbre_tab.elementAt(1));
-            System.out.println(petit_arbre_tab.remove(0));
+            int next_val = Integer.parseInt(petit_arbre_tab.get(1));
+            petit_arbre_tab.remove(0);
 
             if( val > next_val ){
                 ABRR sous_arbre = new ABRR(petit_arbre_tab);
@@ -49,10 +49,46 @@ public class ABRR {
             else if( val < next_val ){
                 ABRR sous_arbre = new ABRR(petit_arbre_tab);
                 arbre.setDroit(sous_arbre);
+                
             }
         }
-        //System.out.println("fini");
         
+        
+    }
+
+    ABRR(Vector<Integer> prefixe_petit_arbre, Vector<Integer> infixe_petit_arbre, int debp, int debi, int finp, int fini) {
+        
+        System.out.println("Nouvelle fonction de construction d'arbre recursive");
+        
+        System.out.println(debp + " "+ debi + " "+ finp + " "+ fini  );
+        
+        if(debi == fini){
+            
+            this.valeur = prefixe_petit_arbre.get(debi);
+            
+            this.droit =null;
+            this.gauche =null;
+            
+            
+        }
+        else{
+            int val = prefixe_petit_arbre.get(debp);
+            int i = debi;
+            while(infixe_petit_arbre.get(i) != val){
+                i++;
+            }
+            int li = i;
+            int lp = debp + li - debi -1;
+            
+            this.valeur = prefixe_petit_arbre.get(debi);
+            
+            
+            this.gauche = new ABRR(prefixe_petit_arbre, infixe_petit_arbre, debp+1, lp, debi, li -1);
+            this.droit =new ABRR(prefixe_petit_arbre, infixe_petit_arbre, lp+1, finp, li+1, fini);
+            
+            
+        }    
+    
     }
 
     public int getValeur() {
