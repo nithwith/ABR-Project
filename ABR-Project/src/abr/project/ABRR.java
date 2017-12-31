@@ -56,39 +56,29 @@ public class ABRR {
         
     }
 
-    ABRR(Vector<Integer> prefixe_petit_arbre, Vector<Integer> infixe_petit_arbre, int debp, int debi, int finp, int fini) {
-        
-        System.out.println("Nouvelle fonction de construction d'arbre recursive");
-        
-        System.out.println(debp + " "+ debi + " "+ finp + " "+ fini  );
-        
-        if(debi == fini){
-            
-            this.valeur = prefixe_petit_arbre.get(debi);
-            
-            this.droit =null;
-            this.gauche =null;
-            
-            
-        }
-        else{
-            int val = prefixe_petit_arbre.get(debp);
-            int i = debi;
-            while(infixe_petit_arbre.get(i) != val){
-                i++;
-            }
-            int li = i;
-            int lp = debp + li - debi -1;
-            
-            this.valeur = prefixe_petit_arbre.get(debi);
-            
-            
-            this.gauche = new ABRR(prefixe_petit_arbre, infixe_petit_arbre, debp+1, lp, debi, li -1);
-            this.droit =new ABRR(prefixe_petit_arbre, infixe_petit_arbre, lp+1, finp, li+1, fini);
-            
-            
-        }    
-    
+    protected static ABRR constructionABRR(Vector<Integer> prefixe_tab, int debutPrefixe, int finPrefixe, Vector<Integer> infixe_tab, int debutInfixe, int finInfixe)
+    {
+        System.out.println("Nouvelle fonction de construction de petit arbre recursive");
+	ABRR noeud = new ABRR();
+	if(debutInfixe == finInfixe)
+		noeud.valeur = prefixe_tab.get(debutPrefixe);
+	else
+	{
+		int IndiceRacineInfixe = debutInfixe;
+		while(infixe_tab.get(IndiceRacineInfixe) != prefixe_tab.get(debutPrefixe))
+			IndiceRacineInfixe++;
+                
+		int IndiceFinSAGPrefixe = debutPrefixe + IndiceRacineInfixe - debutInfixe;
+
+		noeud.valeur = prefixe_tab.get(debutPrefixe);
+
+		if(debutPrefixe + 1 <= IndiceFinSAGPrefixe)
+			noeud.gauche = constructionABRR(prefixe_tab, debutPrefixe + 1, IndiceFinSAGPrefixe, infixe_tab, debutInfixe, IndiceRacineInfixe - 1);
+
+		if(IndiceFinSAGPrefixe + 1 <= finPrefixe)
+			noeud.droit = constructionABRR(prefixe_tab, IndiceFinSAGPrefixe + 1, finPrefixe, infixe_tab, IndiceRacineInfixe + 1, finInfixe);
+	}
+	return noeud;
     }
 
     public int getValeur() {

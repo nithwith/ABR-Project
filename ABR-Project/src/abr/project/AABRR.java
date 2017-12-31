@@ -37,50 +37,38 @@ public class AABRR {
         this.arbreBinaire = arbreBinaire;
     }
 
-    AABRR(Vector<Vector<Integer>> prefixe_tab, Vector<Vector<Integer>> infixe_tab,  int debp, int debi , int finp, int fini) {
+    public AABRR constructeurAABRR(Vector<Vector<Integer>> prefixe_tab,  int debutPrefixe, int finPrefixe ,Vector<Vector<Integer>> infixe_tab, int debutInfixe, int finInfixe) {
         
         System.out.println("Nouvelle fonction de construction d'arbre recursive");
         
-        System.out.println(debp + " "+ debi + " "+ finp + " "+ fini  );
+        AABRR noeud = new AABRR();
         
-        if(debi == fini){
-            
-            Vector<Integer> vector = prefixe_tab.get(debi);
-            this.m = vector.get(0);
-            this.M = vector.get(1);
-            //Creation petit arbre
-            
-            this.droit =null;
-            this.gauche =null;
-            
-            
-        }
-        else{
-            System.out.println("hola ");
-            Vector<Integer> racine = prefixe_tab.get(debp);
-            int i = debi;
-            while(infixe_tab.get(i) != racine){
-                i++;
-            }
-            int li = i;
-            int lp = debp + li - debi -1;
-            
-            Vector<Integer> vector_prefixe = prefixe_tab.get(debi);
-            //PAs sur ???
-            Vector<Integer> vector_infixe = infixe_tab.get(li);
-            this.m = vector_prefixe.get(0);
-            this.M = vector_prefixe.get(1);
-            
-            Vector<Integer> prefixe_petit_arbre = get_vect_petit_arbre(vector_prefixe);
-            Vector<Integer> infixe_petit_arbre = get_vect_petit_arbre(vector_infixe);
-            this.arbreBinaire = new ABRR(prefixe_petit_arbre, infixe_petit_arbre, debp, debi , finp, fini);
-            
-            
-            this.gauche = new AABRR(prefixe_tab, infixe_tab, debp+1, lp, debi, li -1);
-            this.droit =new AABRR(prefixe_tab, infixe_tab, lp+1, finp, li+1, fini);
-            
-            
-        }
+        int IndiceRacineInfixe = debutInfixe;
+        
+        while(infixe_tab.get(IndiceRacineInfixe).get(0) != prefixe_tab.get(debutPrefixe).get(0))
+		IndiceRacineInfixe++;
+        
+        Vector<Integer> prefixe = prefixe_tab.get(debutInfixe);
+        Vector<Integer> infixe = infixe_tab.get(debutInfixe);
+
+	noeud.m = prefixe.get(0);
+        noeud.M = prefixe.get(1);
+        noeud.arbreBinaire = new ABRR();
+        noeud.arbreBinaire.constructionABRR(prefixe, 2, prefixe.size(), infixe, 2, infixe.size());
+        
+        if(debutInfixe != finInfixe)
+	{
+		int IndiceFinSAGPrefixe = debutPrefixe + IndiceRacineInfixe - debutInfixe;
+
+		// Sous-arbre gauche
+		if(debutPrefixe + 1 <= IndiceFinSAGPrefixe)
+			noeud.gauche = constructeurAABRR(prefixe_tab, debutPrefixe + 1, IndiceFinSAGPrefixe, infixe_tab, debutInfixe, IndiceRacineInfixe - 1);
+
+		// Sous-arbre droit
+		if(IndiceFinSAGPrefixe + 1 <= finPrefixe)
+			noeud.droit = constructeurAABRR(prefixe_tab, IndiceFinSAGPrefixe + 1, finPrefixe, infixe_tab, IndiceRacineInfixe + 1, finInfixe);
+	}
+	return noeud;
     }
     
     public Vector<Integer> get_vect_petit_arbre(Vector<Integer> vect){

@@ -131,7 +131,8 @@ public class ABRProject {
                 }
         } while (permut);
         
-       AABRR grandAbre = new AABRR(prefixe_tab,infixe_tab, 0,0,prefixe_tab.size(),infixe_tab.size());
+        AABRR grandAbre = new AABRR();
+        grandAbre.constructeurAABRR(prefixe_tab,0,prefixe_tab.size(),infixe_tab,0,infixe_tab.size());
         
        
         
