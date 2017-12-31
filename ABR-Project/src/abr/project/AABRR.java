@@ -39,7 +39,7 @@ public class AABRR {
 
     public AABRR constructeurAABRR(Vector<Vector<Integer>> prefixe_tab,  int debutPrefixe, int finPrefixe ,Vector<Vector<Integer>> infixe_tab, int debutInfixe, int finInfixe) {
         
-        System.out.println("Nouvelle fonction de construction d'arbre recursive");
+        
         
         AABRR noeud = new AABRR();
         
@@ -48,13 +48,14 @@ public class AABRR {
         while(infixe_tab.get(IndiceRacineInfixe).get(0) != prefixe_tab.get(debutPrefixe).get(0))
 		IndiceRacineInfixe++;
         
-        Vector<Integer> prefixe = prefixe_tab.get(debutInfixe);
-        Vector<Integer> infixe = infixe_tab.get(debutInfixe);
+        Vector<Integer> prefixe = prefixe_tab.get(debutPrefixe);
+        Vector<Integer> infixe = infixe_tab.get(IndiceRacineInfixe);
 
 	noeud.m = prefixe.get(0);
         noeud.M = prefixe.get(1);
-        noeud.arbreBinaire = new ABRR();
-        noeud.arbreBinaire.constructionABRR(prefixe, 2, prefixe.size(), infixe, 2, infixe.size());
+        System.out.println("Grand arbre "+ noeud.m + " "+ noeud.M);
+        noeud.arbreBinaire.constructionABRR(prefixe, 2, prefixe.size()-1, infixe, 2, infixe.size()-1);
+        
         
         if(debutInfixe != finInfixe)
 	{
@@ -87,7 +88,21 @@ public class AABRR {
         return vector;
     }
     
-    public AABRR (Vector<String> grand_arbre_tab){
+    
+    public String exportAABRRVersFichier(AABRR a){
+        String result = new String();
+        //String export_ABRR = a.arbreBinaire.exportABRRVersFichier(a.arbreBinaire);
+        
+        result = a.m+ ":"+a.M+";"/*+ export_ABRR */+"\n";
+
+        if (a.getGauche() != null)
+            result = result + exportAABRRVersFichier(a.getGauche());
+        if (a.getDroit() != null)
+            result= result + exportAABRRVersFichier(a.getDroit());
+        return result;
+    }
+    
+    /*public AABRR (Vector<String> grand_arbre_tab){
         
         //Construction Noeud
         
@@ -148,7 +163,7 @@ public class AABRR {
             arbre.setDroit(sous_arbre);
         }
         
-    }
+    }*/
     
 
     // ACCESSEURS

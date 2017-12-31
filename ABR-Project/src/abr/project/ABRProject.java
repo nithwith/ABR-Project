@@ -8,6 +8,7 @@ package abr.project;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -44,7 +45,7 @@ public class ABRProject {
     
     
     
-    public void fileToArbre (String filepath) throws IOException{
+    public AABRR fileToArbre (String filepath) throws IOException{
         String line = null;
         BufferedReader br = null;
         
@@ -58,6 +59,7 @@ public class ABRProject {
         
         
         Vector<Vector<Integer>> prefixe_tab = new Vector<>();
+        Vector<Vector<Integer>> infixe_tab = new Vector<>();
         
         Vector<String> fichier_string = new Vector<>();
         
@@ -69,30 +71,25 @@ public class ABRProject {
         
         
         //Construction tab int brut
+        
         String[] tab=null;
         int numNoeud=0;
         
         for (String string : fichier_string) {
             prefixe_tab.add(new Vector<>());
+            infixe_tab.add(new Vector<>());
             tab = string.split(";");
             for (String string1 : tab) {
                 String[] tab2 = string1.split(":");
-                
-                
                 for (String string2 : tab2) {
                     prefixe_tab.get(numNoeud).add(Integer.parseInt(string2));
+                    infixe_tab.get(numNoeud).add(Integer.parseInt(string2));
                 }
             }
             numNoeud++;
         }
         
-            
-
-      
-        
         //Tri tab prefixe pour obtenir tab infixe
-        
-        Vector<Vector<Integer>> infixe_tab = prefixe_tab;
         
         
         //Tri des noeuds des petits arbres
@@ -114,7 +111,6 @@ public class ABRProject {
         
         //Tri des noeuds des grand arbres
         boolean permut;
- 
         do {
                 permut = false;
                 for (int i = 0; i < infixe_tab.size() - 1; i++) {
@@ -131,8 +127,24 @@ public class ABRProject {
                 }
         } while (permut);
         
+        /*System.out.println("AFFICHAGE PARCOURS");
+        System.out.println("prefixe");
+        for (Vector<Integer> vector : prefixe_tab) {
+            for (Integer integer : vector) {
+                System.out.print(integer+" ");
+            }
+            System.out.println(" ");
+        }
+        System.out.println("infixe");
+        for (Vector<Integer> vector : infixe_tab) {
+            for (Integer integer : vector) {
+                System.out.print(integer+" ");
+            }
+            System.out.println(" ");
+        }*/
+        
         AABRR grandAbre = new AABRR();
-        grandAbre.constructeurAABRR(prefixe_tab,0,prefixe_tab.size(),infixe_tab,0,infixe_tab.size());
+        return grandAbre.constructeurAABRR(prefixe_tab,0,prefixe_tab.size()-1,infixe_tab,0,infixe_tab.size()-1);
         
        
         
@@ -141,20 +153,19 @@ public class ABRProject {
     
 
     
-    
 
-    public void arbreToFile (String url, AABRR a) throws IOException{
-        try {
-            FileWriter fichier = new FileWriter(url);
-            
-            //int m = a.getm();
-            //int M = a.getM();
-            //fichier.write(m+":"+M+";");
-            fichier.close();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+    public void ArbreTofile (String filepath, AABRR a) throws IOException{
         
+        try {
+            FileWriter fstream = new FileWriter("export.txt");
+            BufferedWriter export = new BufferedWriter(fstream);
+            
+            export.write(a.exportAABRRVersFichier(a));
+            System.out.println("Export Realisé");
+            export.close();
+        } catch (IOException e) {
+          System.err.println("Error: " + e.getMessage());
+        }
     }
 
     public static void  display() throws IOException{
@@ -178,11 +189,12 @@ public class ABRProject {
             case 1:
                 System.out.println("Fichier vers AABRR");
                 System.out.println("Emplacement du fichier (jeu de données : AB_import)");
-                //String str = input.nextLine();
                 project.fileToArbre("AB_import");
                 break;
             case 2:
                 System.out.println("AABRR vers fichier");
+                AABRR a = project.fileToArbre("AB_import");
+                project.ArbreTofile("AB_import",a);
                 break;
             case 3:
                 System.out.println("Affichage à l'écran");
