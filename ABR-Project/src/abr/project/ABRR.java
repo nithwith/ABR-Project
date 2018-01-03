@@ -31,13 +31,12 @@ public class ABRR {
     }
 
 
-    protected static ABRR constructionABRR(Vector<Integer> prefixe_tab, int debutPrefixe, int finPrefixe, Vector<Integer> infixe_tab, int debutInfixe, int finInfixe)
-    {
+    protected static ABRR constructionABRR(Vector<Integer> prefixe_tab, int debutPrefixe, int finPrefixe, Vector<Integer> infixe_tab, int debutInfixe, int finInfixe){
 	ABRR noeud = new ABRR();
         
 	if(debutInfixe == finInfixe){
 		noeud.valeur = prefixe_tab.get(debutPrefixe);
-    }
+        }
 	else
 	{
             
@@ -58,16 +57,20 @@ public class ABRR {
         }
 	return noeud;
     }
+
     
-    public String exportABRRVersFichier(ABRR a){
-        System.out.println("Ca marche paaaaaaas");
+    public String exportABRRVersFichier(ABRR a,boolean first){
         String result = new String();
-        result = a.valeur +":";
+        if (first)
+            result = String.valueOf(a.valeur) ; 
+        else
+            result =":" + a.valeur ; 
         
         if (a.getGauche() != null)
-            result = result + exportABRRVersFichier(a.getGauche());
+            result = result + exportABRRVersFichier(a.getGauche(),false);
         if (a.getDroit() != null)
-            result= result + exportABRRVersFichier(a.getDroit());
+            result= result + exportABRRVersFichier(a.getDroit(),false);
+
         
         return result;
     }

@@ -45,129 +45,33 @@ public class ABRProject {
     
     
     
-    public AABRR fileToArbre (String filepath) throws IOException{
-        String line = null;
-        BufferedReader br = null;
-        
-        try {
-            FileReader fr = new FileReader(filepath);
-            br = new BufferedReader(fr);
-        }
-        catch(IOException e) {
-            System.err.println("Fichier non trouvé : " + e);
-        }
-        
-        
-        Vector<Vector<Integer>> prefixe_tab = new Vector<>();
-        Vector<Vector<Integer>> infixe_tab = new Vector<>();
-        
-        Vector<String> fichier_string = new Vector<>();
-        
-        String ligne = null;
-	while ((ligne=br.readLine())!=null){
-            fichier_string.add(ligne);
-        }
-        br.close(); 
-        
-        
-        //Construction tab int brut
-        
-        String[] tab=null;
-        int numNoeud=0;
-        
-        for (String string : fichier_string) {
-            prefixe_tab.add(new Vector<>());
-            infixe_tab.add(new Vector<>());
-            tab = string.split(";");
-            for (String string1 : tab) {
-                String[] tab2 = string1.split(":");
-                for (String string2 : tab2) {
-                    prefixe_tab.get(numNoeud).add(Integer.parseInt(string2));
-                    infixe_tab.get(numNoeud).add(Integer.parseInt(string2));
-                }
-            }
-            numNoeud++;
-        }
-        
-        //Tri tab prefixe pour obtenir tab infixe
-        
-        
-        //Tri des noeuds des petits arbres
-        int rang=0;
-        for (Vector<Integer> vector : infixe_tab) {
-            Vector<Integer>petit_arbre_trie=new Vector<>();
-            
-            for (int k = 2; k < vector.size(); k++) {
-                petit_arbre_trie.add(vector.get(k));
-            }
-            
-            Collections.sort(petit_arbre_trie);
-            
-            for (int k = 2; k < vector.size(); k++) {
-                vector.remove(k);
-                vector.add(k, petit_arbre_trie.get(k-2));
-            }             
-        }
-        
-        //Tri des noeuds des grand arbres
-        boolean permut;
-        do {
-                permut = false;
-                for (int i = 0; i < infixe_tab.size() - 1; i++) {
-                        Vector<Integer> vector = infixe_tab.elementAt(i);
-                        Vector<Integer> next_vector = infixe_tab.elementAt(i+1);
-                        
-                        if (vector.elementAt(0) > next_vector.elementAt(0)) {
-                            infixe_tab.remove(vector);
-                            infixe_tab.remove(next_vector);
-                            infixe_tab.add(i,next_vector);
-                            infixe_tab.add(i+1,vector);
-                            permut = true;
-                        }
-                }
-        } while (permut);
-        
-        /*System.out.println("AFFICHAGE PARCOURS");
-        System.out.println("prefixe");
-        for (Vector<Integer> vector : prefixe_tab) {
-            for (Integer integer : vector) {
-                System.out.print(integer+" ");
-            }
-            System.out.println(" ");
-        }
-        System.out.println("infixe");
-        for (Vector<Integer> vector : infixe_tab) {
-            for (Integer integer : vector) {
-                System.out.print(integer+" ");
-            }
-            System.out.println(" ");
-        }*/
-        
-        AABRR grandAbre = new AABRR();
-        return grandAbre.constructeurAABRR(prefixe_tab,0,prefixe_tab.size()-1,infixe_tab,0,infixe_tab.size()-1);
-        
-       
-        
-        
+    public AABRR Question1 (String filepath) throws IOException{
+        Question1 q1 = new Question1();
+        return q1.AABRRfromFile(filepath);
+    }
+    
+    public void Question2(AABRR a){
+        Question2 q2 = new Question2();
+        q2.DisplayAABRR(a);
+    }
+
+    public void Question3 (String filepath, AABRR a) throws IOException{
+        Question3 q3 = new Question3();
+        q3.AABRRToFile(filepath, a);
+    }
+    
+    public AABRR Question4(){
+        Question4 q4 = new Question4();
+        return q4.randomAABRR();
+    }
+    
+    public boolean Question5(AABRR a){
+        Question5 q5 = new Question5();
+        return q5.verifABR(a) && q5.intervalmMDisjoint(a) && q5.ABRRDansInterval(a);
     }
     
 
     
-
-    public void ArbreTofile (String filepath, AABRR a) throws IOException{
-        
-        try {
-            FileWriter fstream = new FileWriter("export.txt");
-            BufferedWriter export = new BufferedWriter(fstream);
-            
-            export.write(a.exportAABRRVersFichier(a));
-            System.out.println("Export Realisé");
-            export.close();
-        } catch (IOException e) {
-          System.err.println("Error: " + e.getMessage());
-        }
-    }
-
     public static void  display() throws IOException{
         ABRProject project = new ABRProject();
         
@@ -189,21 +93,27 @@ public class ABRProject {
             case 1:
                 System.out.println("Fichier vers AABRR");
                 System.out.println("Emplacement du fichier (jeu de données : AB_import)");
-                project.fileToArbre("AB_import");
+                project.Question1("AB_import");
                 break;
             case 2:
                 System.out.println("AABRR vers fichier");
-                AABRR a = project.fileToArbre("AB_import");
-                project.ArbreTofile("AB_import",a);
+                AABRR a = project.Question1("AB_import");
+                project.Question3("AB_import",a);
                 break;
             case 3:
                 System.out.println("Affichage à l'écran");
+                AABRR b = project.Question1("AB_import");
+                project.Question2(b);
                 break;
             case 4:
                 System.out.println("AABRR aléatoire");
+                AABRR c = project.Question4();
+                project.Question2(c);
                 break;
             case 5:
                 System.out.println("Vérification");
+                AABRR d = project.Question1("AB_import");
+                project.Question5(d);
                 break;
             case 6:
                 System.out.println("Exiting...");

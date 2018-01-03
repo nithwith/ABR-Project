@@ -16,7 +16,7 @@ import java.util.Vector;
  */
 public class AABRR {
     private int m, M;
-    private ABRR arbreBinaire;
+    private ABRR abrr;
     private AABRR gauche, droit;
 
     // CONSTRUCTEURS
@@ -26,7 +26,7 @@ public class AABRR {
     public AABRR(int m, int M, ABRR arbreBinaire, AABRR gauche, AABRR droit) {
         this.m = m;
         this.M = M;
-        this.arbreBinaire = arbreBinaire;
+        this.abrr = arbreBinaire;
         this.gauche = gauche;
         this.droit = droit;
     }
@@ -34,7 +34,7 @@ public class AABRR {
     public AABRR(int m, int M, ABRR arbreBinaire) {
         this.m = m;
         this.M = M;
-        this.arbreBinaire = arbreBinaire;
+        this.abrr = arbreBinaire;
     }
 
     public AABRR constructeurAABRR(Vector<Vector<Integer>> prefixe_tab,  int debutPrefixe, int finPrefixe ,Vector<Vector<Integer>> infixe_tab, int debutInfixe, int finInfixe) {
@@ -54,7 +54,8 @@ public class AABRR {
 	noeud.m = prefixe.get(0);
         noeud.M = prefixe.get(1);
         System.out.println("Grand arbre "+ noeud.m + " "+ noeud.M);
-        noeud.arbreBinaire.constructionABRR(prefixe, 2, prefixe.size()-1, infixe, 2, infixe.size()-1);
+        noeud.abrr = new ABRR().constructionABRR(prefixe, 2, prefixe.size()-1, infixe, 2, infixe.size()-1);
+        
         
         
         if(debutInfixe != finInfixe)
@@ -71,29 +72,12 @@ public class AABRR {
 	}
 	return noeud;
     }
-    
-    public Vector<Integer> get_vect_petit_arbre(Vector<Integer> vect){
-        Vector<Integer> vect_petit_arbre= new Vector<>();
-        for (int i=2;i<vect.size();i++) {
-            vect_petit_arbre.add(vect.get(i));
-        }
-        return vect_petit_arbre;
-    }
-    
-    public Vector<String> convertStringToVectorSplit(String tab_string ,String charactereSplit){
-        String[] tab = tab_string.split(charactereSplit);
-        Vector<String> vector = new Vector<>();
-        vector.addAll(Arrays.asList(tab));
-        
-        return vector;
-    }
+
     
     
     public String exportAABRRVersFichier(AABRR a){
         String result = new String();
-        //String export_ABRR = a.arbreBinaire.exportABRRVersFichier(a.arbreBinaire);
-        
-        result = a.m+ ":"+a.M+";"/*+ export_ABRR */+"\n";
+        result = a.m+ ":"+a.M+";"+ new ABRR().exportABRRVersFichier(a.abrr,true) +"\n";
 
         if (a.getGauche() != null)
             result = result + exportAABRRVersFichier(a.getGauche());
@@ -102,68 +86,9 @@ public class AABRR {
         return result;
     }
     
-    /*public AABRR (Vector<String> grand_arbre_tab){
-        
-        //Construction Noeud
-        
-        int m = 0;
-        int M = 0;
-        int next_M = 0;
-        int next_m = 0;
+    
+    
 
-        Vector<String>AABRR_vector = convertStringToVectorSplit(grand_arbre_tab.get(0),";");
-        Vector<String>next_AABRR_vector = convertStringToVectorSplit(grand_arbre_tab.get(1),";");
-        Vector<String>next_mM_vector = convertStringToVectorSplit(next_AABRR_vector.get(0),":");
-        Vector<String>mM_vector = convertStringToVectorSplit(AABRR_vector.get(0),":");
-        Vector<String>petit_arbre_vector = convertStringToVectorSplit(AABRR_vector.get(1),":");
-        
-        System.out.println("");
-        System.out.println(grand_arbre_tab.get(0));
-
-        if(mM_vector.get(0) != ";" && mM_vector.get(0) != ":"){
-            m = Integer.parseInt(mM_vector.get(0));
-        }
-        if(mM_vector.get(1) != ";" && mM_vector.get(1) != ":"){   
-            M = Integer.parseInt(mM_vector.get(1));
-        }
-        
-        
-        
-        System.out.print(m +":"+ M + " ; ");
-        
-        ABRR petit_arbre = new ABRR(petit_arbre_vector);
-        
-        
-        System.out.println("");
-        
-        AABRR arbre = new AABRR(m,M,petit_arbre);
-        
-
-        //Construction sous arbres
-        
-        if(next_mM_vector.get(0) != ";" && next_mM_vector.get(0) != ":"){   
-            next_m = Integer.parseInt(next_mM_vector.get(0));
-        }
-        if(next_mM_vector.get(1) != ";" && next_mM_vector.get(1) != ":"){   
-            next_M = Integer.parseInt(next_mM_vector.get(1));
-        }
-
-        
-        grand_arbre_tab.remove(0);
-        System.out.println(m +" "+ M);
-        System.out.println(next_m +" "+ next_M);
-        
-        if( m > next_M ){
-            AABRR sous_arbre = new AABRR(grand_arbre_tab);
-            arbre.setGauche(sous_arbre);
-        }
-        
-        if( M < next_m ){
-            AABRR sous_arbre = new AABRR(grand_arbre_tab);
-            arbre.setDroit(sous_arbre);
-        }
-        
-    }*/
     
 
     // ACCESSEURS
@@ -185,11 +110,11 @@ public class AABRR {
     }
 
     public ABRR getArbreBinaire() {
-        return arbreBinaire;
+        return abrr;
     }
 
     public void setArbreBinaire(ABRR arbreBinaire) {
-        this.arbreBinaire = arbreBinaire;
+        this.abrr = arbreBinaire;
     }
 
     public AABRR getGauche() {
@@ -207,5 +132,6 @@ public class AABRR {
     public void setDroit(AABRR droit) {
         this.droit = droit;
     }
+
 
  }
