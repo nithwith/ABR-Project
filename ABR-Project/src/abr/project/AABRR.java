@@ -38,9 +38,7 @@ public class AABRR {
     }
 
     public AABRR constructeurAABRR(Vector<Vector<Integer>> prefixe_tab,  int debutPrefixe, int finPrefixe ,Vector<Vector<Integer>> infixe_tab, int debutInfixe, int finInfixe) {
-        
-        
-        
+  
         AABRR noeud = new AABRR();
         
         int IndiceRacineInfixe = debutInfixe;
@@ -53,7 +51,6 @@ public class AABRR {
 
 	noeud.m = prefixe.get(0);
         noeud.M = prefixe.get(1);
-        System.out.println("Grand arbre "+ noeud.m + " "+ noeud.M);
         noeud.abrr = new ABRR().constructionABRR(prefixe, 2, prefixe.size()-1, infixe, 2, infixe.size()-1);
         
         
