@@ -129,6 +129,11 @@ public class AABRR {
     public void setDroit(AABRR droit) {
         this.droit = droit;
     }
+    
+    
+    public Boolean afils(AABRR a) {
+        return false;
+    }
 
 
  }

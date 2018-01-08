@@ -18,8 +18,8 @@ public class Question2 {
         
         System.out.println(" ");
         
-        if (a.getGauche() != null)
-            new Question2().DisplayAABRR(a.getGauche());
+        if (a.getGauche() != null) 
+           new Question2().DisplayAABRR(a.getGauche());
         if (a.getDroit() != null)
             new Question2().DisplayAABRR(a.getDroit());
     }

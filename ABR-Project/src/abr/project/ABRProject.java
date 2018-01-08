@@ -62,12 +62,17 @@ public class ABRProject {
     
     public AABRR Question4(){
         Question4 q4 = new Question4();
-        return q4.randomAABRR();
+        return q4.randomAABRR(5, 1, 100);
     }
     
-    public boolean Question5(AABRR a){
+    public void Question5(AABRR a){
         Question5 q5 = new Question5();
-        return q5.verifABR(a) && q5.intervalmMDisjoint(a) && q5.ABRRDansInterval(a);
+        System.out.println("AABRR is ABR               : " + q5.verifABR(a));
+        System.out.println("interval m et M Disjoint   : " + q5.intervalmMDisjoint(a));
+        System.out.println("ABRR Dans Interval m M     : " + q5.ABRRDansInterval(a));
+        System.out.print("\nCaractéristiques vérifiées : ");
+        System.out.print(q5.verifABR(a) && q5.intervalmMDisjoint(a) && q5.ABRRDansInterval(a));
+        System.out.println("\n\n");
     }
     
 
@@ -106,14 +111,16 @@ public class ABRProject {
                 project.Question2(b);
                 break;
             case 4:
-                System.out.println("AABRR aléatoire");
+                System.out.println("CONSCTRUCTION AABRR");
                 AABRR c = project.Question4();
+                System.out.println("AFFICHAGE AABRR ALEATOIRE");
                 project.Question2(c);
                 break;
             case 5:
-                System.out.println("Vérification");
+                System.out.println("Vérifications\n");
                 AABRR d = project.Question1("AB_import");
                 project.Question5(d);
+                
                 break;
             case 6:
                 System.out.println("Exiting...");
