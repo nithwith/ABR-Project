@@ -50,14 +50,15 @@ public class ABRProject {
         return q1.AABRRfromFile(filepath);
     }
     
-    public void Question1_2(AABRR a){
+    public void Question1_2(String filepath, AABRR a) throws IOException{
         Question1_2 q2 = new Question1_2();
-        q2.DisplayAABRR(a);
+        q2.AABRRToFile(filepath, a);
     }
 
-    public void Question1_3 (String filepath, AABRR a) throws IOException{
+    public void Question1_3 ( AABRR a) {
         Question1_3 q3 = new Question1_3();
-        q3.AABRRToFile(filepath, a);
+        q3.DisplayAABRR(a);
+        
     }
     
     public AABRR Question1_4(){
@@ -76,21 +77,22 @@ public class ABRProject {
     }
     
     public void Question2_1 (AABRR a, int i) throws IOException{
+        System.out.println("---------------------------------------------");
         Question2_1 q1 = new Question2_1();
-        AABRR b = Question1_1("AB_import");
-        q1.rechercherABR(b, 5);
+        if(q1.rechercherABR(a, i) == false){
+            System.out.println("Le chiffre entré n'appartient pas à un interval de l'AABRR");
+        };
+        System.out.println("---------------------------------------------");
     }
     
     public void Question2_2 (AABRR a, int i) throws IOException{
         Question2_2 q2 = new Question2_2();
-        AABRR b = Question1_1("AB_import");
-        q2.suppresionABR(b, 5);
+        q2.testSuppressABR(a,i);
     }
     
     public void Question2_3 (AABRR a, int i) throws IOException{
         Question2_3 q3 = new Question2_3();
-        AABRR b = Question1_1("AB_import");
-        q3.insertionABR(b, 80);
+        q3.insertionAABRR(a,i);
     }
     
     public void Question2_4 (AABRR a, int i){
@@ -108,14 +110,15 @@ public class ABRProject {
         ABRProject project = new ABRProject();
         
         Scanner input = new Scanner(System.in);
-        System.out.println("-- Actions --");
+        Scanner inputString = new Scanner(System.in);
+        
+        System.out.println("\n\n\n\n\n\n\n-- MENU --\n");
         System.out.println(
-                "Sélectionner une option: \n" +
                         "  Génération et affichage d'AABRR \n " +
                         "  1) Ficher vers AABRR\n" +
-                        "  2) AABRR vers fichier\n" +
-                        "  3) Affichage à l'écran\n" +
-                        "  4) AABRR aléatoire\n " +
+                        "   2) AABRR vers fichier\n" +
+                        "   3) Affichage à l'écran\n" +
+                        "   4) AABRR aléatoire\n " +
                         "  5) Vérification\n\n " +
                         
                         "  Manipulation d'AABRR \n " +
@@ -132,52 +135,81 @@ public class ABRProject {
         input.nextLine();
         switch (selection) {
             case 1:
-                System.out.println("Fichier vers AABRR");
-                System.out.println("Emplacement du fichier (jeu de données : AB_import)");
-                project.Question1_1("AB_import");
+                System.out.println("Import, fichier vers AABRR");
+                System.out.println("Entrer un emplacement de fichier (jeu de données : AB_import)");
+                String filepath = inputString.nextLine();
+                AABRR u = project.Question1_1(filepath);
+                System.out.println("AABRR importé");
+                project.Question1_3(u);
                 break;
                 
             case 2:
                 System.out.println("AABRR vers fichier");
                 AABRR a = project.Question1_1("AB_import");
-                project.Question1_3("AB_import",a);
+                project.Question1_2("export.txt",a);
                 break;
                 
             case 3:
                 System.out.println("Affichage à l'écran");
                 AABRR b = project.Question1_1("AB_import");
-                project.Question1_2(b);
+                project.Question1_3(b);
                 break;
                 
             case 4:
                 System.out.println("CONSCTRUCTION AABRR");
                 AABRR c = project.Question1_4();
                 System.out.println("AFFICHAGE AABRR ALEATOIRE");
-                project.Question1_2(c);
+                project.Question1_3(c);
                 break;
                 
             case 5:
-                System.out.println("Vérifications\n");
+                System.out.println("Vérifications ABR\n");
                 AABRR d = project.Question1_1("AB_import");
                 project.Question1_5(d);
                 
                 break;
                 
             case 6:
-                System.out.println("Rechercher dans ABR\n");
+                System.out.println("Rechercher dans AABRR\n");
                 AABRR f = project.Question1_1("AB_import");
-                project.Question2_1(f,80);
+                project.Question1_3(f);
+                
+                System.out.println("\nEntrer chiffre a rechercher :\n");
+                selection = input.nextInt();
+                
+                input.nextLine();
+                project.Question2_1(f,selection);
                 break;
                 
                 
             case 7:
-                System.out.println("Exiting...");
-                System.exit(1);
+                System.out.println("Supprimer dans AABRR\n");
+                AABRR e = project.Question1_1("AB_import");
+                project.Question1_3(e);
+                
+                System.out.println("\nEntrer chiffre a supprimer :\n");
+                selection = input.nextInt();
+                
+                input.nextLine();
+                project.Question2_2(e,selection);
+                
+                
+                project.Question1_3(e);
+
                 break;
                 
             case 8:
-                System.out.println("Exiting...");
-                System.exit(1);
+                System.out.println("Insérrer dans AABRR\n");
+                AABRR g = project.Question1_1("AB_import");
+                project.Question1_3(g);
+                
+                System.out.println("\nEntrer chiffre a insérrer :\n");
+                selection = input.nextInt();
+                
+                input.nextLine();
+                project.Question2_3(g,selection);
+                
+                project.Question1_3(g);
                 break;
                 
             case 9:

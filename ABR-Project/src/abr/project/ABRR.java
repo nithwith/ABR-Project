@@ -136,6 +136,17 @@ public class ABRR {
         System.out.println(getValeur());
     }
     
+    public void affichage(ABRR a) {
+        System.out.println("print : ");
+        if(a != null){
+            System.out.println(a.getValeur());
+            if(a.getGauche() != null)
+                affichage(a.getGauche());
+            if(a.getDroit() != null)
+                affichage(a.getDroit());
+        }
+    }
+    
     
     
     

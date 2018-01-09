@@ -5,32 +5,27 @@
  */
 package abr.project;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author Théo
  */
 public class Question1_2 {
-    public void DisplayAABRR(AABRR a){
-        System.out.println("-------------------------");
-        System.out.println("m :"+ a.getm()+" M :"+a.getM());
-        System.out.print("ABRR : ");
-        new Question1_2().DisplayABRR(a.getArbreBinaire());
-        
-        System.out.println(" ");
-        
-        if (a.getGauche() != null) 
-           new Question1_2().DisplayAABRR(a.getGauche());
-        if (a.getDroit() != null)
-            new Question1_2().DisplayAABRR(a.getDroit());
-    }
     
-    public void DisplayABRR(ABRR a){
+    public void AABRRToFile (String filepath, AABRR a) throws IOException{
         
-        System.out.print(a.getValeur()+ " ");
-        
-        if (a.getGauche() != null)
-            new Question1_2().DisplayABRR(a.getGauche());
-        if (a.getDroit() != null)
-            new Question1_2().DisplayABRR(a.getDroit());
+        try {
+            FileWriter fstream = new FileWriter(filepath);
+            BufferedWriter export = new BufferedWriter(fstream);
+            
+            export.write(a.exportAABRRVersFichier(a));
+            System.out.println("Export Realisé");
+            export.close();
+        } catch (IOException e) {
+          System.err.println("Error: " + e.getMessage());
+        }
     }
 }

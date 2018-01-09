@@ -5,25 +5,30 @@
  */
 package abr.project;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 /**
  *
  * @author Théo
  */
 public class Question1_3 {
-    public void AABRRToFile (String filepath, AABRR a) throws IOException{
-        try {
-            FileWriter fstream = new FileWriter("export.txt");
-            BufferedWriter export = new BufferedWriter(fstream);
-            
-            export.write(a.exportAABRRVersFichier(a));
-            System.out.println("Export Realisé");
-            export.close();
-        } catch (IOException e) {
-          System.err.println("Error: " + e.getMessage());
-        }
+    public void DisplayAABRR(AABRR a){
+        System.out.print("m :"+ a.getm()+" M :"+a.getM());
+        System.out.print("\t | ABRR : ");
+        DisplayABRR(a.getArbreBinaire());
+        
+        System.out.println(" ");
+        
+        if (a.getGauche() != null) 
+           DisplayAABRR(a.getGauche());
+        if (a.getDroit() != null)
+            DisplayAABRR(a.getDroit());
+    }
+    
+    public void DisplayABRR(ABRR a){
+        System.out.print(a.getValeur()+ " ");
+        
+        if (a.getGauche() != null)
+            DisplayABRR(a.getGauche());
+        if (a.getDroit() != null)
+            DisplayABRR(a.getDroit());
     }
 }
