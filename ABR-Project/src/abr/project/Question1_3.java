@@ -13,7 +13,7 @@ import java.io.IOException;
  *
  * @author Théo
  */
-public class Question3 {
+public class Question1_3 {
     public void AABRRToFile (String filepath, AABRR a) throws IOException{
         try {
             FileWriter fstream = new FileWriter("export.txt");

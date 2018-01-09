@@ -15,7 +15,7 @@ import java.util.Vector;
  *
  * @author Théo
  */
-public class Question1 {
+public class Question1_1 {
     
     public AABRR AABRRfromFile(String filepath) throws IOException{
         String line = null;

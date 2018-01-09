@@ -13,7 +13,7 @@ import java.util.Random;
  *
  * @author Théo
  */
-public class Question4 {
+public class Question1_4 {
     
     
     public AABRR randomAABRR(int nbnoeud, int min, int max){
