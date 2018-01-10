@@ -36,6 +36,11 @@ public class AABRR {
         this.M = M;
         this.abrr = arbreBinaire;
     }
+    
+    public AABRR(int m, int M) {
+        this.m = m;
+        this.M = M;
+    }
 
     public AABRR constructeurAABRR(Vector<Vector<Integer>> prefixe_tab,  int debutPrefixe, int finPrefixe ,Vector<Vector<Integer>> infixe_tab, int debutInfixe, int finInfixe) {
   

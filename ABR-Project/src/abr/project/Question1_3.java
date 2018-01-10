@@ -11,16 +11,18 @@ package abr.project;
  */
 public class Question1_3 {
     public void DisplayAABRR(AABRR a){
-        System.out.print("m :"+ a.getm()+" M :"+a.getM());
-        System.out.print("\t | ABRR : ");
-        DisplayABRR(a.getArbreBinaire());
-        
-        System.out.println(" ");
-        
-        if (a.getGauche() != null) 
-           DisplayAABRR(a.getGauche());
-        if (a.getDroit() != null)
-            DisplayAABRR(a.getDroit());
+        if(a != null){
+            System.out.print("m :"+ a.getm()+" M :"+a.getM());
+            System.out.print("\t | ABRR : ");
+            DisplayABRR(a.getArbreBinaire());
+
+            System.out.println(" ");
+
+            if (a.getGauche() != null) 
+               DisplayAABRR(a.getGauche());
+            if (a.getDroit() != null)
+               DisplayAABRR(a.getDroit());
+        }
     }
     
     public void DisplayABRR(ABRR a){

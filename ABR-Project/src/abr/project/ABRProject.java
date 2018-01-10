@@ -63,7 +63,8 @@ public class ABRProject {
     
     public AABRR Question1_4(){
         Question1_4 q4 = new Question1_4();
-        return q4.randomAABRR(5, 1, 100);
+        return q4.GenererAABRRAleatoire(5, 1, 100);
+        //return q4.randomAABRR(5, 1, 100);
     }
     
     public void Question1_5(AABRR a){
@@ -112,7 +113,7 @@ public class ABRProject {
         Scanner input = new Scanner(System.in);
         Scanner inputString = new Scanner(System.in);
         
-        System.out.println("\n\n\n\n\n\n\n-- MENU --\n");
+        System.out.println("\n-- MENU --\n");
         System.out.println(
                         "  Génération et affichage d'AABRR \n " +
                         "  1) Ficher vers AABRR\n" +
