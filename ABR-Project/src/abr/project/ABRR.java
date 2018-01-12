@@ -59,23 +59,6 @@ public class ABRR {
     }
 
     
-    public String exportABRRVersFichier(ABRR a,boolean first){
-        String result = new String();
-        if (first)
-            result = String.valueOf(a.valeur) ; 
-        else
-            result =":" + a.valeur ; 
-        
-        if (a.getGauche() != null)
-            result = result + exportABRRVersFichier(a.getGauche(),false);
-        if (a.getDroit() != null)
-            result= result + exportABRRVersFichier(a.getDroit(),false);
-
-        
-        return result;
-    }
-    
-    
     
 
     public int getValeur() {

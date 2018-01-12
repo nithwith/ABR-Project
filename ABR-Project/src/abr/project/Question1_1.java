@@ -32,7 +32,6 @@ public class Question1_1 {
         
         Vector<Vector<Integer>> prefixe_tab = new Vector<>();
         Vector<Vector<Integer>> infixe_tab = new Vector<>();
-        
         Vector<String> fichier_string = new Vector<>();
         
         String ligne = null;
@@ -81,10 +80,10 @@ public class Question1_1 {
             }             
         }
         
-        //Tri des noeuds des grand arbres
-        boolean permut;
+        //Tri des noeuds du grand arbres pour avoir le parcours infixe de l' AABRR
+        boolean pivot;
         do {
-                permut = false;
+                pivot = false;
                 for (int i = 0; i < infixe_tab.size() - 1; i++) {
                         Vector<Integer> vector = infixe_tab.elementAt(i);
                         Vector<Integer> next_vector = infixe_tab.elementAt(i+1);
@@ -94,29 +93,14 @@ public class Question1_1 {
                             infixe_tab.remove(next_vector);
                             infixe_tab.add(i,next_vector);
                             infixe_tab.add(i+1,vector);
-                            permut = true;
+                            pivot = true;
                         }
                 }
-        } while (permut);
+        } while (pivot);
         
-        /*System.out.println("AFFICHAGE PARCOURS");
-        System.out.println("prefixe");
-        for (Vector<Integer> vector : prefixe_tab) {
-            for (Integer integer : vector) {
-                System.out.print(integer+" ");
-            }
-            System.out.println(" ");
-        }
-        System.out.println("infixe");
-        for (Vector<Integer> vector : infixe_tab) {
-            for (Integer integer : vector) {
-                System.out.print(integer+" ");
-            }
-            System.out.println(" ");
-        }*/
         
-        AABRR grandAbre = new AABRR();
-        return grandAbre.constructeurAABRR(prefixe_tab,0,prefixe_tab.size()-1,infixe_tab,0,infixe_tab.size()-1);
+        AABRR a = new AABRR();
+        return a.constructeurAABRR(prefixe_tab,0,prefixe_tab.size()-1,infixe_tab,0,infixe_tab.size()-1);
 
     }
 }

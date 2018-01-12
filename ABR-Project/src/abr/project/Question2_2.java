@@ -37,7 +37,7 @@ public class Question2_2 {
     public boolean testSuppressABR(AABRR a, int i){
         if(a != null){
             if(a.getm() <= i && a.getM() >= i){
-                System.out.println("Dans l'interval M m : " + a.getm()+ " "+ a.getM());
+                System.out.println("Dans l'intervalle M m : " + a.getm()+ " "+ a.getM());
                 
                 //Si la valeur existe, je lance la fonction de suppression
                 if(rechercherABRR(a.getArbreBinaire(), i)){

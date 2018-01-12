@@ -15,7 +15,6 @@ public class Question2_3 {
         if(a != null){
             if(a.getm() <= i && a.getM() >= i){
                 System.out.println("Dans interval M m : " + a.getm()+ " "+ a.getM());
-                System.out.println("lancement insertion");
                 insertionABRR(a.getArbreBinaire(), i);
                 return true;
             }

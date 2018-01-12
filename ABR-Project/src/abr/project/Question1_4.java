@@ -17,63 +17,23 @@ import java.util.Vector;
  */
 public class Question1_4 {
     
-    
-    public AABRR randomAABRR(int nbnoeud, int min, int max){
-        nbnoeud--;
-        int m = 0;
-        int M = 0;
-        Random r = new Random();
-        try {
-            if(min == max){
-                m = min;
-                M = max;
-            }
-                
-            else{
-                m = min + r.nextInt(max - min);
-                M = m + r.nextInt(max - m);
-            }    
-            
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-       
-        ABRR abrr = new ABRR(m);
-        
-        AABRR a = new AABRR(m, M, abrr);
-        System.out.println(min+" "+max + " " +nbnoeud);
-        System.out.println(m+" "+M);
-        System.out.println("-------------------------");
-        
-        if(nbnoeud > 0){
-            int random = 0 + r.nextInt(2 - 0);
-
-            if(random == 0){
-                System.out.println("SAG");
-                a.setGauche(randomAABRR(nbnoeud, min, m));
-            }
-            if(random == 1){
-                System.out.println("SAD");
-                a.setDroit(randomAABRR(nbnoeud, M, max));
-            }
-        }
-        return a;
-    }
-    
-    
-    public AABRR GenererAABRRAleatoire(int nbNoeuds, int min, int max) {
-        ArrayList<Integer> values = new ArrayList<>();
+  
+    public AABRR randomAABRR(int nbNoeuds, int min, int max) {
+        Vector<Integer> vector = new Vector<>();
         Vector<Vector<Integer>> AABRR_vector = new Vector<>();
         Vector<Vector<Integer>> AABRR_vector_random = new Vector<>();
         Random r = new Random();
         
+        //Consctruction des noeuds du grand arbre
         for (int i = 1; i <= nbNoeuds ;i++) {
-            values.add(min + r.nextInt(max - min));
+            vector.add(min + r.nextInt(max - min));
         }
-        Collections.sort(values);
+
+        Collections.sort(vector);
         int arbreMin = 0;
-        ArrayList<AABRR> sousArbres = new ArrayList<AABRR>();
-        for (Integer arbreMax: values) {
+        
+        //Regroupement des paires m et M
+        for (Integer arbreMax: vector) {
             arbreMin = arbreMin + 1;
             Vector<Integer> noeud = new Vector<>();
             noeud.add(arbreMin);
@@ -82,39 +42,37 @@ public class Question1_4 {
             arbreMin = arbreMax + 1;
         }
         
-        
-        for (Vector<Integer> vector : AABRR_vector) {
+        //Répartition aléatoire des noeuds du grand arbres (pour ne pas avoir un arbre filiforme)
+        for (Vector<Integer> vector1 : AABRR_vector) {
             if(r.nextBoolean()){
-                AABRR_vector_random.add(0 ,vector);
+                AABRR_vector_random.add(0 ,vector1);
             }
             else{
-                AABRR_vector_random.add(AABRR_vector_random.size() ,vector);
+                AABRR_vector_random.add(AABRR_vector_random.size() ,vector1);
             }
         }
-        Vector<Integer> finish = new Vector<>();
-        finish.add(0);
-        finish.add(0);
-        AABRR_vector_random.add(finish);
+        Vector<Integer> final_vector = new Vector<>();final_vector.add(0);final_vector.add(0);
+        AABRR_vector_random.add(final_vector);
         
     
 
-        return inserrerAABRR(AABRR_vector_random, 0);
+        return insertAABRRfromVector(AABRR_vector_random, 0);
     }
 
     
     
     
-    public AABRR inserrerAABRR(Vector<Vector<Integer>> vector, int rang){
+    public AABRR insertAABRRfromVector(Vector<Vector<Integer>> vector, int rang){
         
         if(rang < vector.size()-1){
             
             AABRR a = new AABRR(vector.get(rang).get(0), vector.get(rang).get(1),new ABRR(vector.get(rang).get(0)));
                  
             if(a.getm() >= vector.get(rang+1).get(0))
-                a.setGauche(inserrerAABRR(vector,rang+1));
+                a.setGauche(insertAABRRfromVector(vector,rang+1));
 
             if(a.getM() < vector.get(rang+1).get(1))
-                a.setDroit(inserrerAABRR(vector,rang+1));
+                a.setDroit(insertAABRRfromVector(vector,rang+1));
             
             
             
@@ -125,7 +83,7 @@ public class Question1_4 {
         
     }
     
-    public ABRR insertionABRR(ABRR a, int i) {
+    public ABRR insertABRRfromVector(ABRR a, int i) {
         if(a == null){
             System.out.println("Insertion réalisée");
             a = new ABRR(i);
@@ -133,9 +91,9 @@ public class Question1_4 {
         }
         else{
             if(a.getValeur() >= i)
-                a.setGauche(insertionABRR(a.getGauche(), i));
+                a.setGauche(insertABRRfromVector(a.getGauche(), i));
             else
-                a.setDroit(insertionABRR(a.getDroit(), i));
+                a.setDroit(insertABRRfromVector(a.getDroit(), i));
         }
         return a;
     }

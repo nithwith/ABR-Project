@@ -63,7 +63,7 @@ public class ABRProject {
     
     public AABRR Question1_4(){
         Question1_4 q4 = new Question1_4();
-        return q4.GenererAABRRAleatoire(5, 1, 100);
+        return q4.randomAABRR(5, 1, 100);
         //return q4.randomAABRR(5, 1, 100);
     }
     
@@ -100,7 +100,17 @@ public class ABRProject {
         
     }
     
-    public void Question2_5 (AABRR a, int i){
+    public void Question2_5 (AABRR a){
+        Question2_5 q5 = new Question2_5();
+        Vector<Integer> abr_vector = new Vector<>();
+        q5.parcoursAABRR(a,abr_vector);
+        ABR abr = new ABR();
+        for (Integer integer : abr_vector) {
+            q5.insertionABR(abr, integer);
+        }
+        System.out.print("Affichage ABR exporté : ");
+        q5.affichageABR(abr);
+        System.out.println("\n \n ");
         
     }
             
@@ -113,7 +123,9 @@ public class ABRProject {
         Scanner input = new Scanner(System.in);
         Scanner inputString = new Scanner(System.in);
         
-        System.out.println("\n-- MENU --\n");
+        System.out.println("\n\n  --- Application AABRR ---");
+        System.out.println("  Théo MARTY & Théo LACROIX\n");
+
         System.out.println(
                         "  Génération et affichage d'AABRR \n " +
                         "  1) Ficher vers AABRR\n" +
@@ -126,21 +138,20 @@ public class ABRProject {
                         "  6) Recherche d'un entier\n " +
                         "  7) Supression d'un entier\n " +
                         "  8) Insertion d'un entier\n " +
-                        "  9) ABR vers AABRR\n " +
-                        "  10) AABRR vers ABR\n " +
+                        "  9) AABRR vers ABR\n " +
                         
-                        "  11) Quitter\n "
+                        "  10) Quitter\n "
         );
         System.out.print("Rentrez votre choix: ");
         int selection = input.nextInt();
         input.nextLine();
         switch (selection) {
             case 1:
-                System.out.println("Import, fichier vers AABRR");
+                System.out.println("Fichier vers AABRR");
                 System.out.println("Entrer un emplacement de fichier (jeu de données : AB_import)");
                 String filepath = inputString.nextLine();
                 AABRR u = project.Question1_1(filepath);
-                System.out.println("AABRR importé");
+                System.out.println("\n...AABRR importé ...\n");
                 project.Question1_3(u);
                 break;
                 
@@ -151,16 +162,17 @@ public class ABRProject {
                 break;
                 
             case 3:
-                System.out.println("Affichage à l'écran");
+                System.out.println("Affichage AABRR");
                 AABRR b = project.Question1_1("AB_import");
                 project.Question1_3(b);
                 break;
                 
             case 4:
-                System.out.println("CONSCTRUCTION AABRR");
+                System.out.println("Construction AABRR");
                 AABRR c = project.Question1_4();
-                System.out.println("AFFICHAGE AABRR ALEATOIRE");
+                System.out.println("Affichage AABRR Aléatoire");
                 project.Question1_3(c);
+
                 break;
                 
             case 5:
@@ -193,8 +205,6 @@ public class ABRProject {
                 
                 input.nextLine();
                 project.Question2_2(e,selection);
-                
-                
                 project.Question1_3(e);
 
                 break;
@@ -213,17 +223,17 @@ public class ABRProject {
                 project.Question1_3(g);
                 break;
                 
-            case 9:
-                System.out.println("Exiting...");
-                System.exit(1);
-                break;
+ 
             
-            case 10:
-                System.out.println("Exiting...");
-                System.exit(1);
+            case 9:
+                System.out.println("Export AABRR vers ABR\n");
+                AABRR t = project.Question1_1("AB_import");
+                project.Question2_5(t);
+                
+
                 break;
                 
-            case 11:
+            case 10:
                 System.out.println("Exiting...");
                 System.exit(1);
                 break;

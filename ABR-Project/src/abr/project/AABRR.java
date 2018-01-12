@@ -76,22 +76,6 @@ public class AABRR {
     }
 
     
-    
-    public String exportAABRRVersFichier(AABRR a){
-        String result = new String();
-        result = a.m+ ":"+a.M+";"+ new ABRR().exportABRRVersFichier(a.abrr,true) +"\n";
-
-        if (a.getGauche() != null)
-            result = result + exportAABRRVersFichier(a.getGauche());
-        if (a.getDroit() != null)
-            result= result + exportAABRRVersFichier(a.getDroit());
-        return result;
-    }
-    
-    
-    
-
-    
 
     // ACCESSEURS
 

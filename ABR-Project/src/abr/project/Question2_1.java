@@ -13,7 +13,7 @@ public class Question2_1 {
     public boolean rechercherABR(AABRR a, int i){
         if(a != null){
             if(a.getm() <= i && a.getM() >= i){
-                System.out.println("Dans interval M m : " + a.getm()+ " "+ a.getM());
+                System.out.println("Dans intervalle M m : " + a.getm()+ " "+ a.getM());
                 rechercherABRR(a.getArbreBinaire(), i);
                 return true;
             }
@@ -34,7 +34,7 @@ public class Question2_1 {
     public void rechercherABRR(ABRR a, int i){
         if(a != null){
             if(a.getValeur() == i){
-                System.out.println("Valeur trouvée dans ABRR " + a.getValeur());
+                System.out.println("Valeur trouvée dans ABRR : " + a.getValeur());
             }
             
             else{
