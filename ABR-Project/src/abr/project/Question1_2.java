@@ -22,7 +22,6 @@ public class Question1_2 {
             BufferedWriter export = new BufferedWriter(fstream);
             
             export.write(exportAABRRVersFichier(a));
-            System.out.println("Export Realisé");
             export.close();
         } catch (IOException e) {
           System.err.println("Error: " + e.getMessage());

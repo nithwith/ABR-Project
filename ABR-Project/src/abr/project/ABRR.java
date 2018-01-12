@@ -27,9 +27,8 @@ public class ABRR {
         this.valeur = valeur;
     }
 
-    ABRR() {
+    public ABRR() {
     }
-
 
     protected static ABRR constructionABRR(Vector<Integer> prefixe_tab, int debutPrefixe, int finPrefixe, Vector<Integer> infixe_tab, int debutInfixe, int finInfixe){
 	ABRR noeud = new ABRR();
@@ -58,9 +57,6 @@ public class ABRR {
 	return noeud;
     }
 
-    
-    
-
     public int getValeur() {
         return valeur;
     }
@@ -83,40 +79,6 @@ public class ABRR {
 
     public void setDroit(ABRR droit) {
         this.droit = droit;
-    }
-    
-    /**
-     * Affiche l'arbre selon un parcours prefixe
-     */
-    public void ParcoursPrefixe() {
-        System.out.println(getValeur());
-        if (getGauche() != null)
-            getGauche().ParcoursPrefixe();
-        if (getDroit() != null)
-            getDroit().ParcoursPrefixe();
-    }
-    
-   
-    /**
-     * Affiche l'arbre selon un parcours infixe
-     */
-    public void ParcoursInfixe() {
-        if (getGauche() != null)
-            getGauche().ParcoursInfixe();
-        System.out.println(getValeur());
-        if (getDroit() != null)
-            getDroit().ParcoursInfixe();
-    }
-
-    /**
-     * Affiche l'arbre selon un parcours postfixe
-     */
-    public void ParcoursPostfixe() {
-        if (getGauche() != null)
-            getGauche().ParcoursPostfixe();
-        if (getDroit() != null)
-            getDroit().ParcoursPostfixe();
-        System.out.println(getValeur());
     }
     
     public void affichage(ABRR a) {

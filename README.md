@@ -1,10 +1,19 @@
 # ABR-Project
 
-### A lire
+## A lire
 
 Notre projet AABRR est développé en java, vous pouvez récuperer l'archive ABR-Project pour l'executer avec java SE.
 
-### Pour executer le project dans les meilleures conditions
+### Pour éxecuter le projet :
+
+Prérequis : machine possédant java SE installé.
+
+Pour executer le projet, ouvrez la console et lancez la commande suivante dans le répertoire du projet
+
+- *java -jar ABR-Project.jar*
+
+### Pour modifier et compiler le projet :
+
 1. Installer netbeans IDE (version Java SE) :
 
 - https://netbeans.org/downloads/

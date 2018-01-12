@@ -60,9 +60,8 @@ public class Question1_1 {
             numNoeud++;
         }
         
-        //Tri tab prefixe pour obtenir tab infixe
-        
-        
+        //partie 2 : tri du tableau prefixe pour obtenir tableau infixe
+       
         //Tri des noeuds des petits arbres
         int rang=0;
         for (Vector<Integer> vector : infixe_tab) {
