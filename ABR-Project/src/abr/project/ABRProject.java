@@ -104,7 +104,12 @@ public class ABRProject {
                 
             case 4:
                 System.out.println("Construction AABRR");
-                AABRR c = project.Question1_4();
+                System.out.println("Entrer le nombre de noeud de l'AABRR voulu :");
+                int nbnoeud = inputString.nextInt();
+                System.out.println("Entrer la valeur maximum de l'AABRR voulu :");
+                int max = inputString.nextInt();
+
+                AABRR c = project.Question1_4(nbnoeud,max);
                 System.out.println("Affichage AABRR Aléatoire");
                 project.Question1_3(c);
 
@@ -194,10 +199,9 @@ public class ABRProject {
         
     }
     
-    public AABRR Question1_4(){
+    public AABRR Question1_4(int nbnoeud, int max){
         Question1_4 q4 = new Question1_4();
-        return q4.randomAABRR(5, 1, 100);
-        //return q4.randomAABRR(5, 1, 100);
+        return q4.randomAABRR(nbnoeud, 1, max);
     }
     
     public void Question1_5(AABRR a){

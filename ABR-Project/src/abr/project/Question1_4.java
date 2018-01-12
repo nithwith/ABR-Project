@@ -65,8 +65,10 @@ public class Question1_4 {
     public AABRR insertAABRRfromVector(Vector<Vector<Integer>> vector, int rang){
         
         if(rang < vector.size()-1){
+            ABRR abrr = new ABRR(vector.get(rang).get(0));
+            abrr.setGauche(new ABRR(vector.get(rang).get(1)));
             
-            AABRR a = new AABRR(vector.get(rang).get(0), vector.get(rang).get(1),new ABRR(vector.get(rang).get(0)));
+            AABRR a = new AABRR(vector.get(rang).get(0), vector.get(rang).get(1),abrr);
                  
             if(a.getm() >= vector.get(rang+1).get(0))
                 a.setGauche(insertAABRRfromVector(vector,rang+1));

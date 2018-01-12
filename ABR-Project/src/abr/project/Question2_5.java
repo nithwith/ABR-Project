@@ -36,9 +36,9 @@ public class Question2_5 {
         }
         else{
             if(a.getValeur() >= i)
-                a.setGauche(insertionABR(a.getGauche(), i));
-            else
                 a.setDroit(insertionABR(a.getDroit(), i));
+            else
+                a.setGauche(insertionABR(a.getGauche(), i));
         }
         return a;
         
@@ -46,7 +46,8 @@ public class Question2_5 {
     
     public void affichageABR(ABR a) {
         if(a != null){
-            System.out.print(a.getValeur()+" ");
+            System.out.print(a.getValeur()+ " ");
+            
             if(a.getGauche() != null)
                 affichageABR(a.getGauche());
             if(a.getDroit() != null)
